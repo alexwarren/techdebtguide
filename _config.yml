@@ -1,0 +1,7 @@
+markdown: kramdown
+title: Technical Debt Guide
+author: Alex Warren
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-redirect-from

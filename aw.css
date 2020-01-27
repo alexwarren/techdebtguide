@@ -1,0 +1,46 @@
+body {
+  padding-top: 4.5rem;
+}
+
+div.post ul, div.post blockquote {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+blockquote {
+  margin: 1em 40px;
+}
+
+code,
+pre {
+  background: #f5f7f9;
+  border-bottom: 1px solid #d8dee9;
+}
+
+code {
+  padding: 2px 4px;
+  vertical-align: text-bottom;
+}
+
+pre {
+  padding: 1em;
+  border-left: 2px solid #69c;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+span.date {
+  font-size: 90%;
+  margin: 0 6px;
+}
+
+div.date {
+  font-size: 90%;
+  margin: 10px 0;
+}
+
+div.post {
+  margin: 20px 0 40px;
+}
