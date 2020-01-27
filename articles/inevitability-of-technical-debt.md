@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: article
 title: The inevitability of technical debt
 permalink: inevitability-of-technical-debt
 ---

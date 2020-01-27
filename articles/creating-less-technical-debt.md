@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: article
 title: Creating less technical debt
 permalink: creating-less-technical-debt
 ---

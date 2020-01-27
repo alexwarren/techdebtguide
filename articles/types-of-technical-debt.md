@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: article
 title: The different types of technical debt
 permalink: types-of-technical-debt
 ---

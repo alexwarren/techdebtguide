@@ -13,11 +13,9 @@ That gap, between the code we have now, and the high-quality code that it could 
 
 In this guide, we'll look at the different kinds of technical debt, and why it exists. We'll look at how to empower developers to improve code, while still delivering value to the business, and how the business can understand the benefits of fixing technical debt.
 
-- [What is technical debt?](what-is-technical-debt)
-- [The different types of technical debt](types-of-technical-debt)
-- [Why fix technical debt?](why-fix-technical-debt)
-- [Creating less technical debt](creating-less-technical-debt)
-- [The inevitability of technical debt](inevitability-of-technical-debt)
-- [Why developers don't get given time to fix technical debt](why-developers-dont-get-time-to-fix-technical-debt)
-- [Making the case for fixing technical debt](making-the-case-for-fixing-technical-debt)
-- [Resources](resources)
+<ul>
+{% assign articles = site.data.articles %}
+{% for article in articles %}
+    <li><a href="{{ article.url }}">{{ article.title }}</a></li>
+{% endfor %}
+</ul>

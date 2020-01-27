@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: article
 title: Making the case for fixing technical debt
 permalink: making-the-case-for-fixing-technical-debt
 ---

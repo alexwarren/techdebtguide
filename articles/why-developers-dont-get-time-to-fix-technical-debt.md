@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: article
 title: Why developers don't get given time to fix technical debt
 permalink: why-developers-dont-get-time-to-fix-technical-debt
 ---

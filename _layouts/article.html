@@ -1,0 +1,20 @@
+---
+layout: page
+---
+
+{{content}}
+
+{% assign articles = site.data.articles %}
+{% for article in articles %}
+    {% if getNext %}
+        {% assign next = article %}
+        {% break %}
+    {% endif %}
+    {% if page.url == article.url %}
+        {% assign getNext = true %}
+    {% endif %}
+{% endfor %}
+
+{% if next %}
+    <p>Next: <a href="{{ next.url }}">{{ next.title }}</a></p>
+{% endif %}
