@@ -2,6 +2,8 @@
 layout: page
 ---
 
+<h1>{{ page.title }}</h1>
+
 {{content}}
 
 {% assign articles = site.data.articles %}
@@ -16,5 +18,5 @@ layout: page
 {% endfor %}
 
 {% if next %}
-    <p>Next: <a href="{{ next.url }}">{{ next.title }}</a></p>
+    <p><a href="{{ next.url }}" class="btn btn-primary">Next: <b>{{ next.title }}</b></a></p>
 {% endif %}

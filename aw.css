@@ -2,7 +2,7 @@ body {
   padding-top: 4.5rem;
 }
 
-div.content ul, div.content blockquote {
+div.content ul, div.content blockquote, div.footer {
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
@@ -42,4 +42,8 @@ div.date {
 
 div.post {
   margin: 20px 0 40px;
+}
+
+div.footer {
+  font-size: 90%
 }

@@ -3,7 +3,11 @@ layout: page
 title: Technical Debt - a guide for developers and product managers
 ---
 
-Under construction...
+# {{ page.title }}
+
+<div class="alert alert-warning" role="alert">
+    Under construction...
+</div>
 
 How good is your code? If I had to ask you, on a scale of 1 to 10 - where 1 is barely functioning, and 10 is the kind of ideal, clean code that developers dream about - what rating would you give the code you work with on a daily basis?
 
