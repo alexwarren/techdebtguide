@@ -3,10 +3,10 @@ layout: article
 title: The different types of technical debt
 permalink: types-of-technical-debt
 lava_layers:
-    - "1,1,1,1,1"
-    - "1,1,1,2,1,2,2"
-    - "1,3,1,2,1,3,2,3,3,3"
-    - "1,3,1,4,1,4,2,4,3,3,4,4,4,4"
+    JQuery: "1,1,1,1,1"
+    Ember: "1,1,1,2,1,2,2"
+    Angular: "1,3,1,2,1,3,2,3,3,3"
+    React: "1,3,1,4,1,4,2,4,3,3,4,4,4,4"
 ---
 
     TODO: Examples, impact, diagrams
@@ -31,17 +31,28 @@ In an ideal world, developers would refactor the code to remove the duplication.
 
 Over time, you can end up accumulating different ways of doing the same thing. For example, a project that started in 2011 may have chosen jQuery as its front-end framework, so built everything for the first version on top of that. A year later, Angular 1 has been released, and so developers start building new features using that. They don't go back and rewrite all of the older code to use Angular though. As the years go by, new frameworks are used for newer features, but the older features remain using the older frameworks, and so you end up with archaeological layers in your codebase.
 
-<ul>
-    {% assign diagram = page.lava_layers | reverse %}
-    {% for layer in diagram %}
-    <li>
-        {% assign elements = layer | split: "," %}
-        {% for element in elements %}
-        {{ element }}
-        {% endfor %}
-    </li>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Version</th>
+            <th scope="col">Code</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for layer in page.lava_layers %}
+        <tr>
+            <th scope="row">{{ layer[0] }}</th>
+            <td>
+                {% assign elements = layer[1] | split: "," %}
+                {% for element in elements %}
+                <span class="lava_layer_{{ element }}">&block;</span>
+                {% endfor %}
+            </td>
+        </tr>
     {% endfor %}
-</ul>
+  </tbody>
+</table>
+
 
 This is a form of unnecessary complexity - if you had lots of time, you would rewrite everything using the latest and greatest framework. But that doesn't happen, and so you end up with different frameworks having to get along with each other. It can make debugging harder, and it can make adding new features much harder. It makes things harder to reason about - when you're planning a change to an existing feature, you might be touching multiple frameworks. A developer might have to learn how to implement something in an older framework, because there will be no time to rewrite the whole feature in a newer framework. 
 

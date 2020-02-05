@@ -47,3 +47,19 @@ div.post {
 div.footer {
   font-size: 90%
 }
+
+.lava_layer_1 {
+  color: red;
+}
+
+.lava_layer_2 {
+  color: gold;
+}
+
+.lava_layer_3 {
+  color: cyan;
+}
+
+.lava_layer_4 {
+  color: green;
+}
