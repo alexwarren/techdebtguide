@@ -3,10 +3,10 @@ layout: article
 title: The different types of technical debt
 permalink: types-of-technical-debt
 lava_layers:
-    JQuery: "1,1,1,1,1"
-    Ember: "1,1,1,2,1,2,2"
-    Angular: "1,3,1,2,1,3,2,3,3,3"
-    React: "1,3,1,4,1,4,2,4,3,3,4,4,4,4"
+    "2010 - all JQuery": "1,1,1,1,1"
+    "2012 - add Ember": "1,1,1,2,1,2,2"
+    "2014 - add AngularJS": "1,3,1,2,1,3,2,3,3,3"
+    "2016 - add React": "1,3,1,4,1,4,2,4,3,3,4,4,4,4"
 ---
 
     TODO: Examples, impact, diagrams
@@ -34,7 +34,7 @@ Over time, you can end up accumulating different ways of doing the same thing. F
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Version</th>
+            <th scope="col">Year</th>
             <th scope="col">Code</th>
         </tr>
     </thead>
