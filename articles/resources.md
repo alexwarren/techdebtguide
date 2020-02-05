@@ -4,4 +4,5 @@ title: Resources
 permalink: resources
 ---
 
-- https://martinfowler.com/tags/technical%20debt.html
+- [Martin Fowler's blog posts on technical debt](https://martinfowler.com/tags/technical%20debt.html)
+- [Ward Cunningham explains the technical debt metaphor](http://wiki.c2.com/?WardExplainsDebtMetaphor)
