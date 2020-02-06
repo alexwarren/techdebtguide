@@ -12,4 +12,6 @@ Ensuring that developers have enough time to do a good job is also important. It
 
     TODO: Tips on questioning urgency and reducing scope
 
+    TODO: For each type of technical debt, how to create less. e.g. don't introduce new frameworks without a plan for deprecating the old ones.
+
 However, although we can try to create less technical debt, it will always exist, as we'll find out in the next section.
