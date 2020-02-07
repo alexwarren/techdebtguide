@@ -4,9 +4,9 @@ title: Making the case for fixing technical debt
 permalink: making-the-case-for-fixing-technical-debt
 ---
 
-In the previous section, we looked at why developers are not routinely given time to fix technical debt. It turns out that if you're a developer, and you have a technical debt problem, it's up to _you_ to make the case for fixing it. How can you do that effectively?
+In the previous section, we looked at [why developers are not routinely given time to fix technical debt](why-developers-dont-get-time-to-fix-technical-debt). It turns out that if you're a developer, and you have a technical debt problem, it's up to _you_ to make the case for fixing it. How can you do that effectively?
 
-First, you need to remember about what your organisation really cares about. Most organisations that hire developers will care about these things:
+First, you need to remember what your organisation really cares about. Most organisations that hire developers will care about these things:
 
 - How long it takes to ship features
 - How reliable their systems are
