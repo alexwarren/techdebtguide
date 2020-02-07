@@ -33,7 +33,21 @@ Once you've identified and prioritised the technical debt you want to fix, the n
 
 You should start small so that you can build trust. You want to be able to show that you can fix something when entrusted to do so, and that it will have a benefit. Then you'll be more likely to be able to move on and fix the bigger things.
 
-You need to be able to describe in words the technical debt problem you're having, and the impact of it - that is, how much it is slowing you down, and what the potential risks are if it is not fixed. Then you need to be able to describe the solution - including an honest assessment of how much time it will take to develop that solution, and the benefits it will have. You need to build a solid case for fixing the technical debt - so remember, it needs to be something worthwhile that you can really advocate for, as this is not just about tinkering.
+Your plan should answer these questions:
+
+- What is the technical debt problem you've identified?
+- What is the impact of the problem? How is it slowing you down?
+- What are the potential risks if this technical debt is not fixed? (See below for some examples.)
+- How do you propose to fix the problem?
+- How will the new code be tested?
+- How long will this project take? (Be realistic!)
+
+Example risks might be:
+
+- "This code is complex and messy, and we want to add new features in this area in the near future. If we don't dedicate some time to cleaning it up, those new features will be buggier, and slower to develop."
+- "Only one developer properly understands this code, as it was written using an old version of the framework which is now unsupported. If that developer is not available, then it will be very hard for us to support this code, or add new functionality."
+
+You need to build a solid case for fixing the technical debt - so remember, it needs to be something worthwhile that you can really advocate for, as this is not just about tinkering.
 
 I recommend putting this in the backlog, in the same place as other feature work - that means you can prioritise it against that. With a proper plan written down, it will be much easier for you to make the case for fixing the technical debt, instead of picking up yet another feature.
 
