@@ -4,14 +4,16 @@ title: Creating less technical debt
 permalink: creating-less-technical-debt
 ---
 
-Is the answer to technical debt simply to stop creating it in the first place? It's a nice idea, and there certainly are ways of reducing the amount of technical debt we create.
+Is the answer to technical debt simply to stop creating it in the first place? Here are a few ideas for avoiding adding new technical debt to your system.
 
-For example, a good code review process will ensure that we're not unintentionally shipping overly complex code. It can catch unnecessary code duplication, missing tests, and missing documentation.
+A good **code review** process will help to ensure that you're not unintentionally shipping overly complex code. It can catch unnecessary code duplication, missing tests, and missing documentation. 
 
-Ensuring that developers have enough time to do a good job is also important. It's very easy for developers to over-commit, to take on more work than they can realistically handle, so it's good to push back where you can. Question urgency - the less rushed you are, the less technical debt you'll be creating in the first place.
+Ensuring that developers have **enough time** to do a good job is also important. It's very easy for developers to over-commit - we have a tendency to be optimistic about how quickly we can get things done, and there is often a temptation when making estimates to try to please people by saying a particular project shouldn't take too long. That usually ends up backfiring - we don't leave enough time to handle the unexpected, and then in rushing to complete work "on time", we can neglect to write enough tests, or create the right amount of documentation.
 
-    TODO: Tips on questioning urgency and reducing scope
+Always **question urgency**. Everybody likes to imagine that their own project is super important. Whenever somebody asks you to take on extra work, dig into the reasons why it's so important that this happens _now_. Instead of trying to please people by taking on too much work, try to **reduce scope** where you can. If it's really critical to deliver this new thing as soon as possible, see if there is a smaller, simpler version of it that you could try to ship first. The less rushed you are, the less technical debt you'll be creating, and the easier it will be for you and other developers to iterate on the code in the future.
 
-    TODO: For each type of technical debt, how to create less. e.g. don't introduce new frameworks without a plan for deprecating the old ones.
+**Resist the shiny**. There's always a new front-end framework to try out - but you need to resist the urge to build new features in the shiny new framework while you have old features in the old framework. You really need to justify adding additional complexity to a system like that. That means that you need to have a review process before adopting something new - the whole team needs to be on board, and you should only allow new frameworks if you have a plan for removing the old ones.
 
-However, although we can try to create less technical debt, it will always exist, as we'll find out in the next section.
+A "**bug duty**" rotation is useful. For each sprint, have a developer assigned to non-feature work. That means they have the time to fix bugs that are raised, and they can take on small technical debt projects, work on automation, and update dependencies if they have some spare time.
+
+However, although all of the above can be used to great effect to create less technical debt, it will always exist - as we'll find out in the next section.
