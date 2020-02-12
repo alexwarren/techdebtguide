@@ -2,6 +2,8 @@
 layout: article
 title: Why fix technical debt?
 permalink: why-fix-technical-debt
+photo: cesar-carlevarino-aragon-NL_DF0Klepc-unsplash.jpg
+credit: Photo by Cesar Carlevarino Aragon on Unsplash
 ---
 
 Why fix technical debt? In the previous section, we looked at the different [types of technical debt](/types-of-technical-debt), and what unifies them all is that they don't directly affect the end users of our systems. Customers don't see code - the only people who are affected by technical debt are developers, right? The systems work fine for end users, and so everybody else in the business is happy - Product Managers, the CTO, etc.

@@ -2,6 +2,8 @@
 layout: article
 title: The inevitability of technical debt
 permalink: inevitability-of-technical-debt
+photo: jc-gellidon-du7urfbui1Q-unsplash.jpg
+credit: Photo by JC Gellidon on Unsplash
 ---
 
 Although you can try to reduce the amount of technical debt you create (as we discussed in the [last section](creating-less-technical-debt)), there is an unfortunate truth - it will _always exist_.

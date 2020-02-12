@@ -2,6 +2,8 @@
 layout: article
 title: What is technical debt?
 permalink: what-is-technical-debt
+photo: alice-pasqual-Olki5QpHxts-unsplash.jpg
+credit: Photo by Alice Pasqual on Unsplash
 ---
 
 The concept of "technical debt" was coined by Ward Cunningham. In 1992 he wrote an [experience report](http://c2.com/doc/oopsla92.html) for the OOPSLA conference, in which he talked about the development process of a financial product he worked on:

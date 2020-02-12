@@ -2,6 +2,8 @@
 layout: article
 title: Creating less technical debt
 permalink: creating-less-technical-debt
+photo: akshar-dave-9tnw9e0bluk-unsplash.jpg
+credit: Photo by Akshar Dave on Unsplash
 ---
 
 Is the answer to technical debt simply to stop creating it in the first place? Here are a few ideas for avoiding adding new technical debt to your system.
