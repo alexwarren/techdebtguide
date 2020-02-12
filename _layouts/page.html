@@ -27,6 +27,20 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">Technical Debt Guide</a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Contents
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for article in site.data.articles %}
+                        <a class="dropdown-item" href="{{ article.url }}">{{ article.title }}</a>
+                    {% endfor %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/contact">Contact</a>
+                  </div>
+                </li>
+              </ul>
         </div>
     </nav>
     <div class="container content">
