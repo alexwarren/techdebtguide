@@ -13,6 +13,10 @@ There are various different types of technical debt. Let's take a look at each t
 
 ### Unnecessary complexity
 
+<img src="/photos/immo-wegmann-qnrJoo2_4EQ-unsplash.jpg">
+
+<div class="photo-credit">Photo by Immo Wegmann on Unsplash</div>
+
 As the French mathematician Blaise Pascal once wrote, "I would have written a shorter letter, but I did not have the time". The same thing happens in programming - it's harder, and takes longer, to create the simplest system possible that fulfils the requirements. That means our systems are often more complex than they really need to be.
 
 Another factor is this: as we add features to a system, we improve our understanding of what we're trying to build. But it's easier to keep bolting on new parts than rework the foundations. You end up with a much better understanding of the system you "should" have built in the first place, but it's only through creating the current, messier, more complicated system that you reached that understanding.
@@ -24,6 +28,10 @@ Another factor is this: as we add features to a system, we improve our understan
 **Why does this type of technical debt often go unfixed?** Rearchitecting the system can end up being an enormous task of rewriting software that already "works". Worse, rewriting code may introduce new bugs, which means extensive testing is required to ensure that the new version works just as well as the old.
 
 ### Duplication
+
+<img src="/photos/judith-prins-AJa7S1fjy-I-unsplash.jpg">
+
+<div class="photo-credit">Photo by Judith Prins on Unsplash</div>
 
 It's very easy to copy and paste, and there's an art to knowing when it's appropriate to do so. Get the balance wrong and you can end up with lots of code dotted around your system that does more-or-less the same thing. That can mean you fix a bug in one place, but it crops up somewhere else as well.
 

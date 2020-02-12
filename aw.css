@@ -48,6 +48,12 @@ img {
   margin: 0 0 20px 0;
 }
 
+.photo-credit {
+  font-size: 80%;
+  text-align: right;
+  margin: 0 0 20px 0;
+}
+
 span.date {
   font-size: 90%;
   margin: 0 6px;
