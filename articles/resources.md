@@ -4,6 +4,8 @@ title: Resources
 permalink: resources
 ---
 
+### Links
+
 - [Martin Fowler's blog posts on technical debt](https://martinfowler.com/tags/technical%20debt.html)
 - [Ward Cunningham explains the technical debt metaphor](http://wiki.c2.com/?WardExplainsDebtMetaphor)
 - [The Lava Layer Anti-Pattern](http://mikehadlow.blogspot.com/2014/12/the-lava-layer-anti-pattern.html)
@@ -25,3 +27,11 @@ Amazon.com links:
 - <a target="_blank" href="https://www.amazon.com/gp/product/1680502727/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1680502727&linkCode=as2&tag=alexwarren0e-20&linkId=1a907833556735fc011081ef7e8e26e3">Software Design X-Rays: Fix Technical Debt with Behavioral Code Analysis</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=alexwarren0e-20&l=am2&o=1&a=1680502727" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 - <a target="_blank" href="https://www.amazon.com/gp/product/1681985691/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1681985691&linkCode=as2&tag=alexwarren0e-20&linkId=344c6109bc50784ab010ef878a6e3bb5">Sustainable Software Architecture: Analyze and Reduce Technical Debt</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=alexwarren0e-20&l=am2&o=1&a=1681985691" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
 - <a target="_blank" href="https://www.amazon.com/gp/product/B07YYTF79J/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B07YYTF79J&linkCode=as2&tag=alexwarren0e-20&linkId=06c335ce779d487e3610f138ed65b24e">Technical Debt A Complete Guide - 2020 Edition</a><img src="//ir-na.amazon-adsystem.com/e/ir?t=alexwarren0e-20&l=am2&o=1&a=B07YYTF79J" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+
+### Audio
+
+- [Soft Skills Engineering Podcast Episode 149](https://softskills.audio/2019/03/18/episode-149-how-to-get-my-engineering-career-back-on-track-and-how-to-thrive-in-a-heavy-process-environment/) has a great discussion about fixing technical debt.
+
+### Video
+
+- [Why Not Fix Your Technical Debt?](https://www.youtube.com/watch?v=TNcJqyNWTNY), a talk by Alex Warren, creator of this website.
