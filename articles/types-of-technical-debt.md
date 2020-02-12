@@ -11,6 +11,18 @@ lava_layers:
 
 There are various different types of technical debt. Let's take a look at each type, and look into the impact it has. We'll also look at how to fix each type - and also why each type is often left unfixed.
 
+Jump to:
+
+- [Unnecessary complexity](#unnecessary-complexity)
+- [Duplication](#duplication)
+- [Lava layer](#lava-layer)
+- [Lack of testing](#lack-of-testing)
+- [Lack of documentation](#lack-of-documentation)
+- [Lack of automation](#lack-of-automation)
+- [Outdated dependencies](#outdated-dependencies)
+
+---
+
 ### Unnecessary complexity
 
 <img src="/photos/immo-wegmann-qnrJoo2_4EQ-unsplash.jpg">
@@ -27,6 +39,8 @@ Another factor is this: as we add features to a system, we improve our understan
 
 **Why does this type of technical debt often go unfixed?** Rearchitecting the system can end up being an enormous task of rewriting software that already "works". Worse, rewriting code may introduce new bugs, which means extensive testing is required to ensure that the new version works just as well as the old.
 
+---
+
 ### Duplication
 
 <img src="/photos/judith-prins-AJa7S1fjy-I-unsplash.jpg">
@@ -41,7 +55,13 @@ It's very easy to copy and paste, and there's an art to knowing when it's approp
 
 **Why does this type of technical debt often go unfixed?** As with unnecessary complexity, refactoring to remove duplicated code can look like wasted effort, because the code already "works". Sometimes, duplicated code is not an exact match, meaning there can be subtle differences in behaviour. Refactoring this code may therefore introduce bugs.
 
+---
+
 ### Lava layer
+
+<img src="/photos/ben-klea-zXODFyN1eII-unsplash.jpg">
+
+<div class="photo-credit">Photo by Ben Klea on Unsplash</div>
 
 Over time, you can end up accumulating different ways of doing the same thing. For example, a project that started in 2010 may have chosen jQuery as its front-end framework, so built everything for the first version on top of that. A couple of years later, a new front-end framework called Ember has been released, and so developers start building new features using that. However, they don't go back and rewrite all of the older code to use Ember - maybe just a few pieces here and there, to make integrating the new features easier.
 
@@ -75,7 +95,13 @@ As the years go by, new frameworks are used for newer features, but the older fe
 
 **Why does this type of technical debt often go unfixed?** This is a type of unncessary complexity, and the fix is the same - a rewrite. So, again, this often doesn't happen, because it's a lot of work to rewrite something that already works, and there's the risk of breaking something along the way.
 
+---
+
 ### Lack of testing
+
+<img src="/photos/cdc-98PI-JTfQP0-unsplash.jpg">
+
+<div class="photo-credit">Photo by CDC on Unsplash</div>
 
 Time pressure to deliver new features often means that once the code to implement a feature exists, and it has passed some manual testing, then it is shipped to production. Often, developers leave creating automated tests until the end of a project - which means sometimes, they are never written, and the developer moves on to the next thing.
 
@@ -85,7 +111,13 @@ Time pressure to deliver new features often means that once the code to implemen
 
 **Why does this type of technical debt often go unfixed?** There are always new features that could be built instead of adding tests.
 
+---
+
 ### Lack of documentation
+
+<img src="/photos/miguel-pinto-4cWNnW14NsU-unsplash.jpg">
+
+<div class="photo-credit">Photo by Miguel Pinto on Unsplash</div>
 
 As with a tests, writing documentation is something that's often left to the end of a project, and then dropped when priorities move on. Documentation can take many forms - wikis, collaborative documents, or even simply code comments. Writing documentation takes time - and writing _good_ documentation takes even longer.
 
@@ -95,7 +127,13 @@ As with a tests, writing documentation is something that's often left to the end
 
 **Why does this type of technical debt often go unfixed?** Again, there are always new features that could be built instead of devoting time to writing things up.
 
+---
+
 ### Lack of automation
+
+<img src="/photos/rock-n-roll-monkey-LEPhZkQbUrk-unsplash.jpg">
+
+<div class="photo-credit">Photo by Rock'n Roll Monkey on Unsplash</div>
 
 Technical debt sometimes manifests itself not directly in the code, but in the systems and processes around it. For example, a deployment process that has multiple manual steps - this can be error-prone, and slow things down if a human gets something wrong.
 
@@ -105,7 +143,13 @@ Technical debt sometimes manifests itself not directly in the code, but in the s
 
 **Why does this type of technical debt often go unfixed?** If the current process is seen as being "good enough", then it can be hard to justify the effort of automating it. If people make mistakes when performing manual steps, it may be easier to blame the individual - "be more careful", rather than invest in automation. Automation takes time to get right, so initially it may have bugs of its own.
 
+---
+
 ### Outdated dependencies
+
+<img src="/photos/tara-evans-_DAY5kuDvsU-unsplash.jpg">
+
+<div class="photo-credit">Photo by Tara Evans on Unsplash</div>
 
 Unlike other kinds of technical debt, this is one that can increase over time without anybody actually doing anything. You could have a hypothetically perfect system - then come back a year later, and find that the libraries it depends on have moved on. The newer versions of these libraries may have fixed some security holes, so you really ought to update them, but you may well find that there are now incompatibilities. If you want to add a new feature to the system, do you carry on using an old library or upgrade it? Maybe the documentation for the new one has superseded the old version, so it's going to be harder _not_ to upgrade. On the other hand, upgrading the library may break something else.
 
