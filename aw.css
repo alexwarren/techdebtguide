@@ -44,6 +44,10 @@ img {
   height: auto;
 }
 
+.photo {
+  margin: 0 0 20px 0;
+}
+
 span.date {
   font-size: 90%;
   margin: 0 6px;

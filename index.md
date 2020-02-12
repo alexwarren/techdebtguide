@@ -1,13 +1,9 @@
 ---
 layout: page
 title: Technical Debt - a guide for developers and product managers
+photo: luca-bravo-XJXWbfSo2f0-unsplash.jpg
+credit: Photo by Luca Bravo on Unsplash
 ---
-
-# {{ page.title }}
-
-<div class="alert alert-warning" role="alert">
-    Under construction...
-</div>
 
 How good is your code? On a scale of 1 to 10 - where 1 is a barely functioning mess, and 10 is the kind of ideal, clean code that developers dream about - what rating would you give the code you work with on a daily basis?
 
