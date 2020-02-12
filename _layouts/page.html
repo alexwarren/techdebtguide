@@ -34,7 +34,11 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {% for article in site.data.articles %}
+                        {% if page.url == article.url %}
+                        <a class="dropdown-item active" href="{{ article.url }}">{{ article.title }}</a>
+                        {% else %}
                         <a class="dropdown-item" href="{{ article.url }}">{{ article.title }}</a>
+                        {% endif %}
                     {% endfor %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/contact">Contact</a>
