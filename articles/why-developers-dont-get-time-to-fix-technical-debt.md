@@ -10,6 +10,8 @@ If technical debt is an inevitable part of every software project, why aren't de
 
 There is the concept of the [iceberg of ignorance](https://corporate-rebels.com/iceberg-of-ignorance/), which states that the further up the organisation hierarchy you go, the less aware management are of front-line problems. According to a study, if front-line workers (i.e. developers) are aware of 100% of problems, team leads are only aware of 74%. Their own managers are only aware of 9% of problems, and executives at the top of an organisation are only aware of 4%.
 
+<img src="/photos/iceberg-of-ignorance.jpg">
+
 Regardless of whether you believe those specific numbers or not, the idea is that people at the top of an organisation are simply not aware of the kinds of technical debt problems that developers are routinely dealing with. Why would they be? They have broader concerns than that. If my CEO had opinions on whether we should refactor some particular piece of code, that would strike me as very worrying and weird.
 
 So, the problems caused by technical debt rarely bubble up to the higher levels of the organisation - which means that they're not going to treat it as a priority.
