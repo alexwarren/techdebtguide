@@ -2,6 +2,12 @@ body {
   padding-top: 4.5rem;
 }
 
+@media (min-width: 1200px) {
+  .container {
+      max-width: 960px;
+  }
+}
+
 /* https://stackoverflow.com/questions/4086107/fixed-page-header-overlaps-in-page-anchors */ 
 :target::before {
   content: "";
