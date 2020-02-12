@@ -2,6 +2,8 @@
 layout: article
 title: Why developers don't get given time to fix technical debt
 permalink: why-developers-dont-get-time-to-fix-technical-debt
+photo: tim-gouw-1K9T5YiZ2WU-unsplash.jpg
+credit: Photo by Tim Gouw on Unsplash
 ---
 
 If technical debt is an inevitable part of every software project, why aren't developers routinely given time to resolve it?

@@ -2,6 +2,8 @@
 layout: article
 title: Making the case for fixing technical debt
 permalink: making-the-case-for-fixing-technical-debt
+photo: you-x-ventures-Oalh2MojUuk-unsplash.jpg
+credit: Photo by You X Ventures on Unsplash
 ---
 
 In the previous section, we looked at [why developers are not routinely given time to fix technical debt](why-developers-dont-get-time-to-fix-technical-debt). It turns out that if you're a developer, and you have a technical debt problem, it's up to _you_ to make the case for fixing it. How can you do that effectively?
