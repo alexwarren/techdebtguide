@@ -4,20 +4,17 @@ title: "Case Study: Technical Debt at Stack Overflow"
 permalink: case-study-stack-overflow
 ---
 
-I used to work at Stack Overflow, and this is a story about some technical debt I encountered there. It's interesting to look at how this particular piece of technical debt came to exist in the first place, because it shows how a changing business leads to changing requirements, which is one of the reasons why technical debt is inevitable in any system. Then we'll look at how I went about fixing it.
+I used to work as a web developer at Stack Overflow, and this is a story about some technical debt I encountered there. It's interesting to look at how this particular piece of technical debt came to exist in the first place, because it shows how a changing business leads to changing requirements, which is one of the reasons why technical debt is inevitable in any system. Then we'll look at how I went about fixing it.
 
 I came across this technical debt in 2016 when I was working on a redesign of the login experience for Stack Overflow Talent, which is the portal that employers use to post job listings, create company pages and search for candidates on Stack Overflow.
 
-I found that the code for handling user logins and registration was split across two different codebases - the UI lived in the main Stack Overflow Talent codebase, but there was a separate site internally called CareersAuth that received the login and registration form posts, and handled validating and storing usernames and passwords.
+The code for handling user logins and registration was split across two different codebases - the UI lived in the main Stack Overflow Talent codebase, but there was a separate site called CareersAuth that received the login and registration form posts, and handled validating and storing usernames and passwords.
 
-This had a few impacts:
-- showing validation errors in the UI was a pain
-- CareersAuth had outdated dependencies, was hard to get up and running on a developer system
-- emails were handled in two places - Careers had a Users table, and CareersAuth had a separate table
+This slowed me down a bit while implementing the updated redesign. Firstly, CareersAuth hadn't been touched for several years, so I had to spend some time updating various dependencies before I got it to work locally on my developer machine. Secondly, being on a separate site to the login and registration forms slowed me down with some of the UI changes I had to make.
 
-Harder to understand, not documented... Simple functionality like a "forgot password" form couldn't be implemented.
+I could see other drawbacks of the design too. There was no mechanism for users to change their passwords while they were logged in, which seemed like pretty basic functionality - but would have been hard to add with the current design. Email addresses were stored in two places, as Talent its own Users table, and CareersAuth had a separate database. That meant that when users changed their email address on Stack Overflow Talent, this was not reflected on the separate CareersAuth database, which meant they couldn't get a password reset sent to their new email address.
 
-So it was overcomplicated, led to bugs where emails got mismatched. Why had intelligent people implemented this in such a strange way? It turns out, as with a lot of technical debt, that the decisions made perfect sense at the time. Let's look at a little history.
+Those kinds of issues could have been worked around, but they would have been unncessarily complex. The system was harder to understand than it needed to be, and not well documented. Why had intelligent people implemented this in such a strange way? It turns out, as with a lot of technical debt, that the decisions made perfect sense at the time. Let's look at a little history.
 
 (Nice timeline from Punyon on this: https://meta.stackoverflow.com/questions/312452/careers-unificintegration-jobs-on-stack-overflow)
 2006: Joel on Software job board: https://www.joelonsoftware.com/2006/09/05/introducing-jobsjoelonsoftwarecom/
