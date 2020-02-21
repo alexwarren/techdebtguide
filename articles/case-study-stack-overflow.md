@@ -4,9 +4,21 @@ title: "Case Study: Technical Debt at Stack Overflow"
 permalink: case-study-stack-overflow
 ---
 
-I used to work as a web developer at Stack Overflow, and this is a story about some technical debt I encountered there. It's interesting to look at how this particular piece of technical debt came to exist in the first place, because it shows how a changing business leads to changing requirements, which is one of the reasons why technical debt is inevitable in any system. Then we'll look at how I went about fixing it.
+For several years I worked as a web developer at [Stack Overflow](https://stackoverflow.com/). As with every company, Stack Overflow has some technical debt in its systems (remember, [technical debt is inevitable](/inevitability-of-technical-debt)), and this is a story about a particular piece of technical debt which I was involved with. This is an interesting example because it demonstrates how the changing requirements of a changing business lead to the creation of technical debt. It's also a story with a happy ending, because I was able to implement a plan for fixing it.
 
-I came across this technical debt in 2016 when I was working on a redesign of the login experience for Stack Overflow Talent, which is the portal that employers use to post job listings, create company pages and search for candidates on Stack Overflow.
+### CareersAuth
+
+In 2016, I was working on a redesign of the login experience for [Stack Overflow Talent](https://stackoverflow.com/talent/en), which is the portal that employers use to post job listings, create company pages and search for candidates on Stack Overflow.
+
+I was changing this crufty old login page, with its prominent OpenID options:
+
+<img src="/photos/old-login.png" class="screenshot" alt="Old login page">
+
+To something more like the one which had recently been implemented on the main Stack Overflow Q&A site:
+
+<img src="/photos/new-login.png" class="screenshot" alt="New login page">
+
+This looked like it should be simple - just a bit of HTML and CSS tweaking, pretty much copying and pasting from the Q&A codebase, right? Well, it turned out to be a little bit more complicated than that. There wasn't just the look of the form to consider, but things like the behaviour that occuurs when the user types in an incorrect password.
 
 The code for handling user logins and registration was split across two different codebases - the UI lived in the main Stack Overflow Talent codebase, but there was a separate site called CareersAuth that received the login and registration form posts, and handled validating and storing usernames and passwords.
 
@@ -15,6 +27,8 @@ This slowed me down a bit while implementing the updated redesign. Firstly, Care
 I could see other drawbacks of the design too. There was no mechanism for users to change their passwords while they were logged in, which seemed like pretty basic functionality - but would have been hard to add with the current design. Email addresses were stored in two places, as Talent its own Users table, and CareersAuth had a separate database. That meant that when users changed their email address on Stack Overflow Talent, this was not reflected on the separate CareersAuth database, which meant they couldn't get a password reset sent to their new email address.
 
 Those kinds of issues could have been worked around, but they would have been unncessarily complex. The system was harder to understand than it needed to be, and not well documented. Why had intelligent people implemented this in such a strange way? It turns out, as with a lot of technical debt, that the decisions made perfect sense at the time. Let's look at a little history.
+
+### A failed bet on OpenID
 
 (Nice timeline from Punyon on this: https://meta.stackoverflow.com/questions/312452/careers-unificintegration-jobs-on-stack-overflow)
 2006: Joel on Software job board: https://www.joelonsoftware.com/2006/09/05/introducing-jobsjoelonsoftwarecom/
@@ -53,6 +67,8 @@ Revisit principle #2 - wanted jobs things integrated with Stack Overflow.
 
 The hack to put Jobs in SO was implemented in Dec 2015 https://stackoverflow.blog/2015/12/21/bringing-jobs-to-stack-overflow/
 <!-- TODO: I have some slides on this -->
+
+### A plan to fix it
 
 So that's how the technical debt came about. How did I fix it?
 

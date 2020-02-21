@@ -44,6 +44,13 @@ img {
   height: auto;
 }
 
+img.screenshot {
+  box-shadow: 12px 12px 29px #555;
+  padding: 20px;
+  margin: 20px;
+  max-width: calc(100% - 40px);
+}
+
 .photo {
   margin: 0 0 20px 0;
 }
