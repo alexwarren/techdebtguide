@@ -72,6 +72,14 @@ The hack to put Jobs in SO was implemented in Dec 2015 https://stackoverflow.blo
 
 So that's how the technical debt came about. How did I fix it?
 
+Slowly, carefully, and with planning.
+
+Although this technical debt was slowing me down with the work I was doing to update the login pages, I didn't try to fix it immediately. That would have been a lot of scope creep for that task. So I sucked it up and finished my work with the technical debt still in place. With that piece of work done, I had some time to prototype some things.
+
+Established that Talent could authenticate users by reading the CareersAuth database. Able to replicate the functionality of ASP.NET Simple Membership (see RFC).
+
+Feature flagged login and signup pages to use new login code. Sent RFC for feedback, to see how far the project should go. Got comments back, effectively approval. Code review. Shipped it. Plan with SRE to decommission old CareersAuth site. Ended up not going further and merging the databases.
+
 Sep 2016.  I was working on the new Talent onboarding experience, and needed to update the design on the login pages to match the main Stack Overflow (as one aspect of Careers being a fork of old SO was that it had the old SO design, which was really not very user friendly). I noticed CareersAuth was way out of date with .Net frameworks. Then I questioned its existence.
 
 Week of 18 July: Talent Onboarding - Implementing Courtny’s redesign
