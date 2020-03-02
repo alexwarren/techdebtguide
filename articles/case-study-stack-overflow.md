@@ -18,15 +18,15 @@ To something more like the one which had recently been implemented on the main S
 
 <img src="/photos/new-login.png" class="screenshot" alt="New login page">
 
-This looked like it should be simple - just a bit of HTML and CSS tweaking, pretty much copying and pasting from the Q&A codebase, right? Well, it turned out to be a little bit more complicated than that. There wasn't just the look of the form to consider, but things like the behaviour that occuurs when the user types in an incorrect password.
+This looked like it should be simple - just a bit of HTML and CSS tweaking, pretty much copying and pasting from the Q&A codebase, right? Well, it turned out to be a little bit more complicated than that. There wasn't just the look of the form to consider, but things like the behaviour that occurs when the user types in an incorrect password.
 
 The code for handling user logins and registration was split across two different codebases - the UI lived in the main Stack Overflow Talent codebase, but there was a separate site called CareersAuth that received the login and registration form posts, and handled validating and storing usernames and passwords.
 
 This slowed me down a bit while implementing the updated redesign. Firstly, CareersAuth hadn't been touched for several years, so I had to spend some time updating various dependencies before I got it to work locally on my developer machine. Secondly, being on a separate site to the login and registration forms slowed me down with some of the UI changes I had to make.
 
-I could see other drawbacks of the design too. There was no mechanism for users to change their passwords while they were logged in, which seemed like pretty basic functionality - but would have been hard to add with the current design. Email addresses were stored in two places, as Talent its own Users table, and CareersAuth had a separate database. That meant that when users changed their email address on Stack Overflow Talent, this was not reflected on the separate CareersAuth database, which meant they couldn't get a password reset sent to their new email address.
+I could see other drawbacks of the design too. There was no mechanism for users to change their passwords while they were logged in, which seemed like pretty basic functionality - but would have been hard to add with the current design. Email addresses were stored in two places, as Talent had its own Users table, and CareersAuth had a separate database. That meant that when users changed their email address on Stack Overflow Talent, this was not reflected on the separate CareersAuth database, which meant they couldn't get a password reset sent to their new email address.
 
-Those kinds of issues could have been worked around, but they would have been unncessarily complex. The system was harder to understand than it needed to be, and not well documented. Why had intelligent people implemented this in such a strange way? It turns out, as with a lot of technical debt, that the decisions made perfect sense at the time. Let's look at a little history.
+Those kinds of issues could have been worked around, but they would have added unncessary complexity. The system was harder to understand than it needed to be, and not well documented. Why had intelligent people implemented this in such a strange way? It turns out, as with a lot of technical debt, that the decisions made perfect sense at the time. Let's look at a little history.
 
 ### A failed bet on OpenID
 
