@@ -33,11 +33,23 @@ Those kinds of issues could have been worked around, but they would have added u
 (Nice timeline from Punyon on this: https://meta.stackoverflow.com/questions/312452/careers-unificintegration-jobs-on-stack-overflow)
 2006: Joel on Software job board: https://www.joelonsoftware.com/2006/09/05/introducing-jobsjoelonsoftwarecom/
 
-Stack Overflow launched in 2008. This was during the optimistic days of OpenID, back when there was this idea of the internet being comprised of interoperable services rather than things being in the control of just a few enormous tech companies.
+When Stack Overflow launched in 2008, a technical decision was taken which seemed to make a lot of sense at the time, and co-founder Jeff Atwood wrote about it at the time in a blog post called [OpenID: Does The World Really Need Yet Another Username and Password?](https://blog.codinghorror.com/openid-does-the-world-really-need-yet-another-username-and-password/)
 
-Article from 2008 https://blog.codinghorror.com/openid-does-the-world-really-need-yet-another-username-and-password/
+> As we continue to work on the code that will eventually become stackoverflow, we belatedly realized that we'd be contributing to the glut of username and passwords on the web. I have fifty online logins, and I can't remember any of them! Adding that fifty-first set of stackoverflow.com credentials is unlikely to help matters. With some urging from my friend Jon Galloway, I decided to take a look at OpenID.
 
-To save the hassle of SO having to deal with usernames and passwords, instead delegate everything to OpenID. That appealed to geeks, they could run their own OpenID providers. In the future maybe every website would accept OpenID and we would be free from the problems of passwords forever. It was a technical bet on a future that never came to pass, and the consequences were felt for a long time. This was a time before password managers were mainstream. It was a kind of technical debt in its own right, the shortcut was that SO wouldn't need to build anything to handle passwords - wouldn't have to worry about storing them securely, no need to build functionality like password reset and rate limiting. In theory it kept the architecture clean - they didn't need to support both passwords and third-party logins, because they took the decision to not support passwords at all. (Design principle #1 - no passwords)
+In those days, we still had this idea that the internet was comprised of lots of interoperable services, rather than things being centralised in the control of just a few enormous tech companies. OpenID pre-dated users being able to log in to websites with their Facebook or Google accounts. While Facebook or Google could have implemented OpenID themselves to give their users the ability to do that, _anybody_ could be their own OpenID provider if they had their own website. Then they wouldn't need to rely on a big company to give them one-click login to other websites all over the web.
+
+So, Stack Overflow took a bet on OpenID being the future. It would save them the hassle of having to deal with passwords - no need to worry about storing them securely, and no support calls from people who have forgotten their password, because all of that stuff is effectively outsourced to whoever that user's OpenID provider is. In the future, maybe every website would accept OpenID, and so users would be used to logging in that way.
+
+Unfortunately, that didn't quite come to pass. While it is common these days to log into a website using your Facebook or Google account, we don't use OpenID. Instead, websites use a similar technology called OAuth. This isn't interoperable in the same way that OpenID was - if a website only supports logins from, say, Google, you can't use your Facebook account to log in. Users are limited to logging in using one of the big tech companies - but on the plus side, it is a simpler system for users to understand. With OpenID, you'd have to find your provider from a big list of options, or enter your unique ID URL, but with OAuth, you just hit the "log in with Facebook" or "log in with Google" button and go from there.
+
+Adopting the fairly niche (and not particularly user-friendly) OpenID in 2008 was a technical decision that made sense at the time. The users of Stack Overflow were programmers, so expecting them to understand the technicalities of OpenID wasn't too much of a big ask. It gave Stack Overflow benefits in that they didn't have to build lots of functionality around passwords.
+
+But as time passes, the world changes, and that means that these kinds of early decisions don't make sense forever.
+
+
+
+and we would be free from the problems of passwords forever. It was a technical bet on a future that never came to pass, and the consequences were felt for a long time. This was a time before password managers were mainstream. It was a kind of technical debt in its own right, the shortcut was that SO wouldn't need to build anything to handle passwords - wouldn't have to worry about storing them securely, no need to build functionality like password reset and rate limiting. In theory it kept the architecture clean - they didn't need to support both passwords and third-party logins, because they took the decision to not support passwords at all. (Design principle #1 - no passwords)
 
 June 2009 SO job board *and* SF job board https://www.joelonsoftware.com/2009/06/03/get-a-job/
 Super basic and not integrated at all with the sites. Rebadging of the Joel on Software job board.
@@ -145,44 +157,4 @@ Feedback:
 
 So this showed some benefits I hadn't thought about - simpler for SRE to maintain. It also showed where I could simplify things - we didn't actually need to do a big database migration at all, we could just keep CareersAuth as a separate database. And it showed something which I missed out - the actual decommissioning process for the old app, which would require coordinating with SRE to update various configurations and take the old site down.
 
-Code review. Shipped it. Plan with SRE to decommission old CareersAuth site. Ended up not going further and merging the databases.
-
-Sep 2016.  I was working on the new Talent onboarding experience, and needed to update the design on the login pages to match the main Stack Overflow (as one aspect of Careers being a fork of old SO was that it had the old SO design, which was really not very user friendly). I noticed CareersAuth was way out of date with .Net frameworks. Then I questioned its existence.
-
-Week of 18 July: Talent Onboarding - Implementing Courtny’s redesign
-
-Week of 1 August: Login
-- Resumed implementing the new Stack Overflow login design on Careers
-- Upgraded CareersAuth from MVC 2 to 5.2.3, and from .Net 4.0 to 4.5.2
-- I don’t think keeping CareersAuth as a separate project makes sense any more, so after implementing the new login screen designs I’ll implement its functionality “locally” on Careers itself
-
-Week of 8 August:
-- New login and register pages now implemented, hidden behind a feature flag. I will enable this on dev when I get back so we can test it properly before making it live.
-- Operation Nuke CareersAuth going well so far. I have a separate feature flag for this. Currently have login and registration code working without needing to hit the CareersAuth app. It still uses the CareersAuth database for now. Need to consider where we take things next, I think ideally getting everything onto StackAuth - I’ll write up an RFC when I’m back.
-
-Week of 22 August:
-- Testing new login design on dev - will switch this on in prod on Tuesday 30th
-- Sent out RFC about CareersAuth nuking
-
-<!-- TODO: Go through what was in the RFC, and the kinds of comments people had. -->
-
-- Finish implementing remaining CareersAuth functionality, so we can turn on the BypassCareersAuth flag and switch off the CareersAuth app
-Week of 12 September:
-- BypassCareersAuth feature flag now turned on on dev. Dev CareersAuth app now throws exceptions when you access it.
-- Created a decommissioning plan for switching off the CareersAuth app - waiting on SRE to fill in their bits
-- The CareersAuth DB now has proper migrations, just like Careers and Careers.BigStuff
-- A few tweaks from code review
-
-Week of 19 September:
-- Feature flag turned on in production - Careers is now handling its own logins
-- Monitoring old app to check it doesn’t get hit any more
-- Created DB migrations to tidy things up once the old app is turned off [removed a lot of the standard ASP.Net Membership cruft that my new implementation didn't need]
-
-Week of 26 September:
-- CareersAuth app is dead dead dead - removed from the app pool and TeamCity
-
-Week of 21 November:
-- Start tidying CareersAuth tables
-
-Week of 28 November:
-- More CareersAuth tidying
+A plan was coming together, and we were agreed on a way forward - all without a single meeting. My manager gave the OK for the work to go ahead, and a couple of weeks later, the old CareersAuth app was no more.
