@@ -76,8 +76,9 @@ Slowly, carefully, and with planning.
 
 Although this technical debt was slowing me down with the work I was doing to update the login pages, I didn't try to fix it immediately. That would have been a lot of scope creep for that task. I finished the work with the technical debt still in place - I wasn't about to try to "sneak in" a rewrite of the login back-end alongside this front-end change. But, I allowed myself enough autonomy over my work to spend a day or two doing _research_ about the change I wanted to make, and write it up as an RFC.
 
-<!-- TODO: About the RFC process at SO. But your company doesn't need a dedicated process, you can still write up
-a proposal and send it to relevant people. -->
+An RFC is a "Request For Comments" document. Stack Overflow had a process for these - anybody could propose a change, write it up in an RFC document, and circulate it around the company to get feedback. There was a dedicated mailing list for this, where RFCs would be sent to other developers, support staff, management and marketing. If your company doesn't have an official RFC process, you can still do the same thing - just send around a document by email to as many relevant people as possible, and ask for feedback and comments on it.
+
+Here's a lightly edited version of the RFC I sent around:
 
 <div class="quotedoc" markdown="1">
 
@@ -85,7 +86,7 @@ a proposal and send it to relevant people. -->
 
 #### Problem
 
-When users log in to Careers using an email address and password, that is handled by a separate app and database called CareersAuth (openid.stackauth.com). This is technical debt - it is overly complex for the simple functionality it provides. It also means that:
+When users log in to Careers using an email address and password, that is handled by a separate app and database called CareersAuth. This is technical debt - it is overly complex for the simple functionality it provides. It also means that:
 
 - Users cannot change their passwords while logged in, they have to use the “forgot password” functionality to get a password reset emailed to them.
 - When users change their email address on Careers, this is not reflected in the separate CareersAuth database, which means they can’t get a password reset sent to their new email address.
@@ -109,7 +110,7 @@ There is no great magic to how the ASP.NET SQL Membership provider works, so thi
 
 Here is a link to a prototype: [link to a GitHub branch]
 
-The feature flag BypassCareersAuth toggles whether Careers uses the CareersAuth app via OpenID, or whether it uses the new code in AuthService.
+The feature flag `BypassCareersAuth` toggles whether Careers uses the CareersAuth app via OpenID, or whether it uses the new code in AuthService.
 
 When we turn this feature flag on in production, the CareersAuth app can be switched off.
 
@@ -117,31 +118,34 @@ When we turn this feature flag on in production, the CareersAuth app can be swit
 
 Migrate the following CareersAuth tables to the main Careers database:
 
-- aspnet_Membership
-- aspnet_Users
-- openid_aspnet_Users
-- PasswordResetRequest
+- `aspnet_Membership`
+- `aspnet_Users`
+- `openid_aspnet_Users`
+- `PasswordResetRequest`
 
-The remaining tables in CareersAuth are not required by the BypassCareersAuth implementation.
+The remaining tables in CareersAuth are not required by the `BypassCareersAuth` implementation.
 
-Password resets expire after 48 hours so we don’t actually need most of those PasswordResetRequest rows. (Right now we would only keep 47 rows).
-
-There is also an aspnet_Membership_CreateUser stored procedure. We could either migrate this or just call the same SQL directly.
+There is also an `aspnet_Membership_CreateUser` stored procedure. We could either migrate this or just call the same SQL directly.
 
 ##### Future Stages
 
 These need a bit more thought, so are not in scope for right now (but if you do have thoughts, please share them!)
 
-- Fixing the data model. Currently we have email addresses in three places - CareersAuth.aspnet_Membership.Email, CareersAuth.aspnet_Users.Username and Careers.Users.Email. When a user’s email address is changed in Careers, we do not update the CareersAuth data. This means we have to check additional usernames (CareersAuth usernames are just email addresses) in the login code, as the login username is still the old email address. It also means currently you can’t send a password reset to your new email address. Users can log in using their old or new email address. There’s also nothing to stop you changing your email address on Careers to one that has an existing CareersAuth account. Needz moar thought about how to tidy this up.
-- Migrating to StackAuth. This seems desirable so people can use the same username+password on Careers as they do on SO. Needz moar thought about how to handle this, especially what to do about accounts that already exist in StackAuth.
+- Fixing the data model. Currently we have email addresses in three places - `CareersAuth.aspnet_Membership.Email`, `CareersAuth.aspnet_Users.Username` and `Careers.Users.Email`. When a user’s email address is changed in Careers, we do not update the CareersAuth data. This means we have to check additional usernames (CareersAuth usernames are just email addresses) in the login code, as the login username is still the old email address. It also means currently you can’t send a password reset to your new email address. Users can log in using their old or new email address. There’s also nothing to stop you changing your email address on Careers to one that has an existing CareersAuth account. Needs more thought about how to tidy this up.
+- Migrating to StackAuth. This seems desirable so people can use the same username+password on Careers as they do on SO. Needs more thought about how to handle this, especially what to do about accounts that already exist in StackAuth.
 
 </div>
 
+Feedback:
 
+- "Is migration to StackAuth actually worth doing? StackAuth is kind of a gross hack, and it would put a lot of burden on Careers (and Core) to share it’s functionality."
+- "Great! One less thing to worry about during failovers and no more 'What the heck is CareersAuth again?' So I anticipate you are making SREs happy."
+- "Looks good, very pragmatic approach, particularly using Dapper rather than that bloody horrible ASP.NET membership cruft... I’m not sure there’s really any advantage to moving the data into Careers if we’re considering a move to StackAuth? Seems like it’ll add additional complexity for little benefit (Careers can already read/write to CareersAuth). Also, wondering if there’s any security advantages to keeping it as a separate DB?"
+- "Part of deprecating CareersAuth also involves tearing down the website/app pools, TeamCity configs etc. I’m guessing we need to get SRE involved here; both to get rid of the dev/prod config and to make sure they’re aware of it in their failover plans."
 
-Established that Talent could authenticate users by reading the CareersAuth database. Able to replicate the functionality of ASP.NET Simple Membership (see RFC).
+So this showed some benefits I hadn't thought about - simpler for SRE to maintain. It also showed where I could simplify things - we didn't actually need to do a big database migration at all, we could just keep CareersAuth as a separate database. And it showed something which I missed out - the actual decommissioning process for the old app, which would require coordinating with SRE to update various configurations and take the old site down.
 
-Feature flagged login and signup pages to use new login code. Sent RFC for feedback, to see how far the project should go. Got comments back, effectively approval. Code review. Shipped it. Plan with SRE to decommission old CareersAuth site. Ended up not going further and merging the databases.
+Code review. Shipped it. Plan with SRE to decommission old CareersAuth site. Ended up not going further and merging the databases.
 
 Sep 2016.  I was working on the new Talent onboarding experience, and needed to update the design on the login pages to match the main Stack Overflow (as one aspect of Careers being a fork of old SO was that it had the old SO design, which was really not very user friendly). I noticed CareersAuth was way out of date with .Net frameworks. Then I questioned its existence.
 

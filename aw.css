@@ -47,7 +47,7 @@ img {
 img.screenshot {
   box-shadow: 12px 12px 29px #555;
   padding: 20px;
-  margin: 20px;
+  margin: 20px 20px 40px;
   max-width: calc(100% - 40px);
 }
 
@@ -82,7 +82,7 @@ div.footer {
 div.quotedoc {
   box-shadow: 12px 12px 29px #555;
   padding: 20px;
-  margin: 20px;
+  margin: 20px 20px 40px;
   max-width: calc(100% - 40px);
   font-size: 90%;
 }
