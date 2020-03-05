@@ -47,20 +47,11 @@ Adopting the fairly niche (and not particularly user-friendly) OpenID in 2008 wa
 
 But as time passes, the world changes, and that means that these kinds of early decisions don't make sense forever.
 
+In 2009, Stack Overflow launched Careers. A technical decision that was taken at this time was to launch it as a separate site to Stack Overflow. Based on a fork of the Stack Overflow Q&A codebase, it sat on a separate subdomain and shared a look and feel, but otherwise was pretty much completely separate. This was another decision that made good sense at the time. No need to clutter up the Q&A codebase with a load of stuff about jobs, and maybe as the Q&A network grew with the launch of other sites to cover topics outside of programming (such as Server Fault for system admins), those other sites could have separate job boards of their own too.
 
+But now the OpenID login system presented a problem. Whereas the Q&A site had been set up for programmers, the Careers site needed to be easily accessible to employers, who might not be so technical. New audience, new requirements - and OpenID wasn’t going cut it.
 
-and we would be free from the problems of passwords forever. It was a technical bet on a future that never came to pass, and the consequences were felt for a long time. This was a time before password managers were mainstream. It was a kind of technical debt in its own right, the shortcut was that SO wouldn't need to build anything to handle passwords - wouldn't have to worry about storing them securely, no need to build functionality like password reset and rate limiting. In theory it kept the architecture clean - they didn't need to support both passwords and third-party logins, because they took the decision to not support passwords at all. (Design principle #1 - no passwords)
-
-June 2009 SO job board *and* SF job board https://www.joelonsoftware.com/2009/06/03/get-a-job/
-Super basic and not integrated at all with the sites. Rebadging of the Joel on Software job board.
-
-Then came Careers, the job board for Stack Overflow (later renamed to Stack Overflow Talent). At that time the Stack Overflow network looked like: Stack Overflow, Super User, Server Fault. The idea was a network of sites. So it made sense to build Stack Overflow Careers as a separate network site. (Design principle #2 - separate sites for separate things)
-
-Nov 2009 Careers 1.0 https://www.joelonsoftware.com/2009/11/05/upgrade-your-career/
-Developers create a CV and pay a fee to sign up and be searchable by employers. Employers couldn't sign up yet, that was December (https://www.joelonsoftware.com/2009/12/02/programmer-search-engine/).
-"It’s not for the 5.2 million people who visit Stack Overflow; it’s for the top 25,000 developers who participate actively. It’s not for every employer; it’s for the few that treat developers well and offer a place to work that’s genuinely fulfilling."
-
-SO needed employers as well as developers to log into SO Careers though. And employers are less technical than developers, and would need to log in using a username and password. So the way to build that, to fit in with the architectural principles, was to build a simple OpenID provider that employers could use.
+So the way to build that, to fit in with the architectural principles, was to build a simple OpenID provider that employers could use.
 
 Feb 2011 Careers 2.0 https://stackoverflow.blog/2011/02/23/careers-2-0-launches/ - free but invite-only
 
