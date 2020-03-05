@@ -79,6 +79,14 @@ div.footer {
   font-size: 90%
 }
 
+div.quotedoc {
+  box-shadow: 12px 12px 29px #555;
+  padding: 20px;
+  margin: 20px;
+  max-width: calc(100% - 40px);
+  font-size: 90%;
+}
+
 .lava_layer_1 {
   color: red;
 }

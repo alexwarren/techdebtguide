@@ -74,7 +74,70 @@ So that's how the technical debt came about. How did I fix it?
 
 Slowly, carefully, and with planning.
 
-Although this technical debt was slowing me down with the work I was doing to update the login pages, I didn't try to fix it immediately. That would have been a lot of scope creep for that task. So I sucked it up and finished my work with the technical debt still in place. With that piece of work done, I had some time to prototype some things.
+Although this technical debt was slowing me down with the work I was doing to update the login pages, I didn't try to fix it immediately. That would have been a lot of scope creep for that task. I finished the work with the technical debt still in place - I wasn't about to try to "sneak in" a rewrite of the login back-end alongside this front-end change. But, I allowed myself enough autonomy over my work to spend a day or two doing _research_ about the change I wanted to make, and write it up as an RFC.
+
+<!-- TODO: About the RFC process at SO. But your company doesn't need a dedicated process, you can still write up
+a proposal and send it to relevant people. -->
+
+<div class="quotedoc" markdown="1">
+
+### RFC: Operation Nuke CareersAuth
+
+#### Problem
+
+When users log in to Careers using an email address and password, that is handled by a separate app and database called CareersAuth (openid.stackauth.com). This is technical debt - it is overly complex for the simple functionality it provides. It also means that:
+
+- Users cannot change their passwords while logged in, they have to use the “forgot password” functionality to get a password reset emailed to them.
+- When users change their email address on Careers, this is not reflected in the separate CareersAuth database, which means they can’t get a password reset sent to their new email address.
+
+CareersAuth is implemented as an OpenID provider. It pre-dates StackAuth, which is also an OpenID provider. It would be desirable for us not to maintain two OpenID providers, and it would also be desirable for users to be able to log in to Careers using the same email address and password they use to log in to Stack Overflow.
+
+#### Background
+
+At the time CareersAuth was implemented, StackAuth did not exist. The only way to log in to Careers was via a separate OpenID provider, but this adds complexity for users, as they need to use or set up an account on a third-party website to log in to ours.
+CareersAuth was created as an in-house OpenID provider so users could log in to Careers using a username and password. This is implemented using the standard ASP.NET SQL Membership Provider and DotNetOpenAuth to implement OpenID. This way, Careers can talk to CareersAuth just the same as if it were an external OpenID provider.
+
+DotNetOpenAuth is apparently no longer maintained (though I can’t find a source for this) and the ASP.NET Membership provider is ​not great​. Careers only needs to identify a user logging in with an email address and password, and it already has access to the CareersAuth database, so OpenID seems overkill - a user will never use their CareersAuth credentials to log in to any other website.
+ 
+#### Proposed Solution
+
+##### Stage 1: Nuke the CareersAuth app
+
+The Careers app can handle all CareersAuth functionality by talking directly to the CareersAuth database.
+
+There is no great magic to how the ASP.NET SQL Membership provider works, so this functionality is relatively easy to implement ourselves using Dapper.
+
+Here is a link to a prototype: [link to a GitHub branch]
+
+The feature flag BypassCareersAuth toggles whether Careers uses the CareersAuth app via OpenID, or whether it uses the new code in AuthService.
+
+When we turn this feature flag on in production, the CareersAuth app can be switched off.
+
+##### Stage 2: Nuke the CareersAuth database
+
+Migrate the following CareersAuth tables to the main Careers database:
+
+- aspnet_Membership
+- aspnet_Users
+- openid_aspnet_Users
+- PasswordResetRequest
+
+The remaining tables in CareersAuth are not required by the BypassCareersAuth implementation.
+
+Password resets expire after 48 hours so we don’t actually need most of those PasswordResetRequest rows. (Right now we would only keep 47 rows).
+
+There is also an aspnet_Membership_CreateUser stored procedure. We could either migrate this or just call the same SQL directly.
+
+##### Future Stages
+
+These need a bit more thought, so are not in scope for right now (but if you do have thoughts, please share them!)
+
+- Fixing the data model. Currently we have email addresses in three places - CareersAuth.aspnet_Membership.Email, CareersAuth.aspnet_Users.Username and Careers.Users.Email. When a user’s email address is changed in Careers, we do not update the CareersAuth data. This means we have to check additional usernames (CareersAuth usernames are just email addresses) in the login code, as the login username is still the old email address. It also means currently you can’t send a password reset to your new email address. Users can log in using their old or new email address. There’s also nothing to stop you changing your email address on Careers to one that has an existing CareersAuth account. Needz moar thought about how to tidy this up.
+- Migrating to StackAuth. This seems desirable so people can use the same username+password on Careers as they do on SO. Needz moar thought about how to handle this, especially what to do about accounts that already exist in StackAuth.
+
+</div>
+
+
 
 Established that Talent could authenticate users by reading the CareersAuth database. Able to replicate the functionality of ASP.NET Simple Membership (see RFC).
 
