@@ -30,9 +30,6 @@ Those kinds of issues could have been worked around, but they would have added u
 
 ### A failed bet on OpenID
 
-(Nice timeline from Punyon on this: https://meta.stackoverflow.com/questions/312452/careers-unificintegration-jobs-on-stack-overflow)
-2006: Joel on Software job board: https://www.joelonsoftware.com/2006/09/05/introducing-jobsjoelonsoftwarecom/
-
 When Stack Overflow launched in 2008, a technical decision was taken which seemed to make a lot of sense at the time, and co-founder Jeff Atwood wrote about it at the time in a blog post called [OpenID: Does The World Really Need Yet Another Username and Password?](https://blog.codinghorror.com/openid-does-the-world-really-need-yet-another-username-and-password/)
 
 > As we continue to work on the code that will eventually become stackoverflow, we belatedly realized that we'd be contributing to the glut of username and passwords on the web. I have fifty online logins, and I can't remember any of them! Adding that fifty-first set of stackoverflow.com credentials is unlikely to help matters. With some urging from my friend Jon Galloway, I decided to take a look at OpenID.
@@ -51,25 +48,9 @@ In 2009, Stack Overflow launched Careers. A technical decision that was taken at
 
 But now the OpenID login system presented a problem. Whereas the Q&A site had been set up for programmers, the Careers site needed to be easily accessible to employers, who might not be so technical. New audience, new requirements - and OpenID wasn’t going cut it.
 
-So the way to build that, to fit in with the architectural principles, was to build a simple OpenID provider that employers could use.
+So the way to build that, to fit in with the architectural principles, was to build a simple OpenID provider that employers could use, one which would only ever be supported for logging in to Stack Overflow Careers.
 
-Feb 2011 Careers 2.0 https://stackoverflow.blog/2011/02/23/careers-2-0-launches/ - free but invite-only
-
-https://stackoverflow.blog/2010/04/13/openid-one-year-later/
-Starts to talk about discrepancies in behaviour between providers, and other drawbacks
-
-HandleSuccess https://meta.stackexchange.com/questions/207388/why-is-the-handlesuccess-method-such-a-terrible-one
-
-May 2011 - SE finally supports usernames and passwords, by becoming an OpenID provider:
-https://stackoverflow.blog/2011/05/27/stack-exchange-is-an-openid-provider/
-
-Later StackAuth was built for SO. Now we were maintaining two OpenID providers.
-
-Revisit principle #1 - later Stack allowed usernames and passwords. OpenID died so the entire principle was rolled back.
-Revisit principle #2 - wanted jobs things integrated with Stack Overflow.
-
-The hack to put Jobs in SO was implemented in Dec 2015 https://stackoverflow.blog/2015/12/21/bringing-jobs-to-stack-overflow/
-<!-- TODO: I have some slides on this -->
+Later, in 2011, Stack Overflow Q&A finally began to support usernames and passwords itself, by [becoming a fully fledged OpenID provider](https://stackoverflow.blog/2011/05/27/stack-exchange-is-an-openid-provider/). This was a new implementation - rather than reuse or extend the Careers one, this one was created from scratch. That makes some sense - why risk breaking Careers logins? - but it now meant the company was maintaining two OpenID providers.
 
 ### A plan to fix it
 
