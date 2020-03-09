@@ -4,11 +4,11 @@ title: "Case Study: Technical Debt at Stack Overflow"
 permalink: case-study-stack-overflow
 ---
 
-For several years I worked as a web developer at [Stack Overflow](https://stackoverflow.com/). As with every company, Stack Overflow has some technical debt in its systems (remember, [technical debt is inevitable](/inevitability-of-technical-debt)), and this is a story about a particular piece of technical debt which I was involved with. This is an interesting example because it demonstrates how the changing requirements of a changing business lead to the creation of technical debt. It's also a story with a happy ending, because I was able to implement a plan for fixing it.
+For several years I worked as a web developer at [Stack Overflow](https://stackoverflow.com/). As with every company, Stack Overflow has some technical debt in its systems (remember, [technical debt is inevitable](/inevitability-of-technical-debt)), and this is a story about a particular piece of technical debt which I was involved with. This is an interesting example because it demonstrates how the changing requirements of a changing business lead to the creation of technical debt. It's also a story with a happy ending, because I was able to successfully implement a plan for fixing it.
 
 ### CareersAuth
 
-In 2016, I was working on a redesign of the login experience for [Stack Overflow Talent](https://stackoverflow.com/talent/en), which is the portal that employers use to post job listings, create company pages and search for candidates on Stack Overflow.
+In 2016, I was working on a redesign of the login experience for [Stack Overflow Talent](https://stackoverflow.com/talent/en), which up until that time had been known as Stack Overflow Careers. This is the portal that employers use to post job listings, create company pages and search for candidates on Stack Overflow.
 
 I was changing this crufty old login page, with its prominent OpenID options:
 
@@ -18,15 +18,19 @@ To something more like the one which had recently been implemented on the main S
 
 <img src="/photos/new-login.png" class="screenshot" alt="New login page">
 
-This looked like it should be simple - just a bit of HTML and CSS tweaking, pretty much copying and pasting from the Q&A codebase, right? Well, it turned out to be a little bit more complicated than that. There wasn't just the look of the form to consider, but things like the behaviour that occurs when the user types in an incorrect password.
+This looked like it should be simple - just a bit of HTML and CSS tweaking, pretty much copying and pasting from the Q&A codebase, right? Well, there was a little bit more to it than that. There wasn't just the _design_ of the form to consider, but its _behaviour_ - things like user input validation, and where to display messages such as "incorrect password" notifications.
 
-The code for handling user logins and registration was split across two different codebases - the UI lived in the main Stack Overflow Talent codebase, but there was a separate site called CareersAuth that received the login and registration form posts, and handled validating and storing usernames and passwords.
+OK, but the behaviour of a login form is also pretty straightforward, isn't it? Copy and paste some front-end JavaScript, and maybe some of the back-end code too? The Q&A codebase was C#, and the Talent codebase was also C#, so that should all be quick and easy.
+
+Well, almost. Unlike the Q&A site, on the Talent site it turned out that the code for handling user login and registration was split across two different codebases. The UI lived in the main Stack Overflow Talent codebase, but there was a separate site called CareersAuth that received the login and registration form posts, and handled validating and storing usernames and passwords.
 
 This slowed me down a bit while implementing the updated redesign. Firstly, CareersAuth hadn't been touched for several years, so I had to spend some time updating various dependencies before I got it to work locally on my developer machine. Secondly, being on a separate site to the login and registration forms slowed me down with some of the UI changes I had to make.
 
-I could see other drawbacks of the design too. There was no mechanism for users to change their passwords while they were logged in, which seemed like pretty basic functionality - but would have been hard to add with the current design. Email addresses were stored in two places, as Talent had its own Users table, and CareersAuth had a separate database. That meant that when users changed their email address on Stack Overflow Talent, this was not reflected on the separate CareersAuth database, which meant they couldn't get a password reset sent to their new email address.
+There were other limitations of this architecture. There was no mechanism for users to change their passwords while they were logged in, which seemed like it should have been pretty basic functionality. Email addresses were stored in two places, as Talent had its own Users table, and CareersAuth had a separate database. That meant that when users changed their email address on Stack Overflow Talent, this was not reflected on the separate CareersAuth database - so if they forgot their password, they couldn't get a password reset sent to their new email address.
 
-Those kinds of issues could have been worked around, but they would have added unncessary complexity. The system was harder to understand than it needed to be, and not well documented. Why had intelligent people implemented this in such a strange way? It turns out, as with a lot of technical debt, that the decisions made perfect sense at the time. Let's look at a little history.
+It wouldn't have been completely impossible to create solutions to these kinds of issues, but the code required would have been unnecessarily complex, and testing would have been unnecessarily difficult. The work would would have taken longer than seemed reasonable for the trickle of users that were affected, which meant that it was never a big priority. These were the kinds of issues that languished, requiring workarounds from the support team. Need to change your password? Just log out and hit the "forgot password" button, and then you can reset it to something else. Changed your email address and can't get a password reset? Just get in touch with support, and we'll go in and update the "other" database.
+
+Why had intelligent people implemented this in such a strange way? It turns out that, as with a lot of technical debt, it was the result of a series of decisions, all of which made perfect sense at the time. Let's look at a little history.
 
 ### A failed bet on OpenID
 
