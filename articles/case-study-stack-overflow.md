@@ -68,7 +68,7 @@ Slowly, carefully, and with planning.
 
 Although this technical debt was slowing me down with the work I was doing to update the login pages, I didn't try to fix it immediately. That would have been a lot of scope creep for that task. I finished the work with the technical debt still in place - I wasn't about to try to "sneak in" a rewrite of the login back-end alongside this front-end change. But, I allowed myself enough autonomy over my work to spend a day or two doing _research_ about the change I wanted to make, and write it up as an RFC.
 
-An RFC is a "Request For Comments" document. Stack Overflow had a process for these - anybody could propose a change, write it up in an RFC document, and circulate it around the company to get feedback. There was a dedicated mailing list for this, where RFCs would be sent to other developers, support staff, management and marketing. If your company doesn't have an official RFC process, you can still do the same thing - just send around a document by email to as many relevant people as possible, and ask for feedback and comments on it.
+An RFC is a "Request For Comments" document. Stack Overflow had a process for these - anybody could propose a change, write it up in an RFC document, and circulate it around the company to get feedback. There was a dedicated mailing list for this, where RFCs would be sent to other developers, support staff, management and marketing. (If your company doesn't have an official RFC process, you can still do the same thing - just send around a document by email to as many relevant people as possible, and ask for feedback and comments on it.)
 
 Here's a lightly edited version of the RFC I sent around:
 
@@ -128,13 +128,36 @@ These need a bit more thought, so are not in scope for right now (but if you do 
 
 </div>
 
-Feedback:
+### Feedback
 
-- "Is migration to StackAuth actually worth doing? StackAuth is kind of a gross hack, and it would put a lot of burden on Careers (and Core) to share it’s functionality."
-- "Great! One less thing to worry about during failovers and no more 'What the heck is CareersAuth again?' So I anticipate you are making SREs happy."
-- "Looks good, very pragmatic approach, particularly using Dapper rather than that bloody horrible ASP.NET membership cruft... I’m not sure there’s really any advantage to moving the data into Careers if we’re considering a move to StackAuth? Seems like it’ll add additional complexity for little benefit (Careers can already read/write to CareersAuth). Also, wondering if there’s any security advantages to keeping it as a separate DB?"
-- "Part of deprecating CareersAuth also involves tearing down the website/app pools, TeamCity configs etc. I’m guessing we need to get SRE involved here; both to get rid of the dev/prod config and to make sure they’re aware of it in their failover plans."
+I got some really useful feedback from this - lots of positive comments, but also a few things which helped me to refine and simplify the plan, and showed other benefits of doing this work:
 
-So this showed some benefits I hadn't thought about - simpler for SRE to maintain. It also showed where I could simplify things - we didn't actually need to do a big database migration at all, we could just keep CareersAuth as a separate database. And it showed something which I missed out - the actual decommissioning process for the old app, which would require coordinating with SRE to update various configurations and take the old site down.
+> "Is migration to StackAuth actually worth doing? StackAuth is kind of a gross hack, and it would put a lot of burden on Careers (and Core) to share it’s functionality."
 
-A plan was coming together, and we were agreed on a way forward - all without a single meeting. My manager gave the OK for the work to go ahead, and a couple of weeks later, the old CareersAuth app was no more.
+My big plan had been to eventually move everything in CareersAuth over to the "other" OpenID provider, giving a universal login across Stack Overflow and Careers. But I wasn't familiar at all with the other OpenID provider we maintained internally - and comments like this helped me to reduce my ambitions somewhat, keeping things simple by reducing the scope of this work.
+
+> "Great! One less thing to worry about during failovers and no more 'What the heck is CareersAuth again?' So I anticipate you are making SREs happy."
+
+I hadn't even thought about the benefits to SRE (Site Reliability Engineering), reducing complexity for them too.
+
+> "Looks good, very pragmatic approach, particularly using Dapper rather than that bloody horrible ASP.NET membership cruft... I’m not sure there’s really any advantage to moving the data into Careers if we’re considering a move to StackAuth? Seems like it’ll add additional complexity for little benefit (Careers can already read/write to CareersAuth). Also, wondering if there’s any security advantages to keeping it as a separate DB?"
+
+Another comment that helped to keep things simple. I was talking about migrating the CareersAuth database into the main Careers one - but was there really any benefit to doing that? It turns out, no, and keeping it separate may even be better anyway.
+
+> "Part of deprecating CareersAuth also involves tearing down the website/app pools, TeamCity configs etc. I’m guessing we need to get SRE involved here; both to get rid of the dev/prod config and to make sure they’re aware of it in their failover plans."
+
+Up until this point, my plan would have involved Careers simply not using the CareersAuth app - but CareersAuth would still have sat there idle. This showed me that I needed to speak to some more people so we could actually get it properly decommissioned.
+
+### Implementation
+
+A plan had come together, and we were agreed on a way forward - all without a single meeting. I created a further document with an actual implementation plan, showing who was doing what and when, and how we would test all of this, to ensure that we wouldn't break everything.
+
+My manager gave the OK for the work to go ahead, and a couple of weeks later, the old CareersAuth app was no more. We now had a shiny new login page, and a much simpler process behind the scenes.
+
+There was still work to do - for example, that "change password" functionality actually needed implementing, but at least that sort of thing would now be much simpler.
+
+### Conclusion
+
+Technical debt can exist for many reasons, but it's often the result of a series of decisions which, while they made sense at the time, may no longer make sense due to changes in the business and the wider world. Stack Overflow started out as a Q&A site for programmers, took a bet on the world adopting a particular way of authenticating with websites, and needed to adapt when it expanded its audience to less technical people. Meanwhile the world decided on a different way of authenticating with websites, which left Stack Overflow Careers with a login architecture that didn't work well any more.
+
+Developers have the power to fix technical debt, but you can't just dive in and start rewriting things. Instead, spend some time doing research, communicate with your fellow developers and the wider business, and come up with a plan. You may get more buy-in than you think, because there may be other benefits of fixing the technical debt that you haven't realised. You also may get some legitimate push-back - maybe some of the work you're proposing isn't actually necessary. This can all be very useful information, and will help you invest the right amount of effort to get a good outcome for everybody.

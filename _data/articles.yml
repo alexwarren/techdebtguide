@@ -12,7 +12,7 @@
   url: /why-developers-dont-get-time-to-fix-technical-debt
 - title: Making the case for fixing technical debt
   url: /making-the-case-for-fixing-technical-debt
-# - title: "Case Study: Technical Debt at Stack Overflow"
-#  url: /case-study-stack-overflow
+- title: "Case Study: Technical Debt at Stack Overflow"
+  url: /case-study-stack-overflow
 - title: Resources
   url: /resources
